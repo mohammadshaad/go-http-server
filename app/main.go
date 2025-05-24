@@ -35,7 +35,11 @@ func main() {
 	if method == "GET" && path == "/" {
 		conn.Write([]byte("HTTP/1.1 200 OK\r\nContent-Length: 12\r\n\r\nHello world!"))
 	}  else if (method == "GET" && path == "/user-agent") {
-		
+		// read header
+		header := make([]byte, 1024)
+		conn.Read(header)
+		headerString := string(header)
+		conn.Write([]byte(headerString))
 	} else if (method == "GET" && path == "/validate-request") {
 		conn.Write([]byte("HTTP/1.1 200 OK\r\nContent-Length: 12\r\n\r\nHello world!"))
 	} else if (method == "GET" && path == "/echo") {
